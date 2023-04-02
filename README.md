@@ -13,7 +13,26 @@ Once this is done, the play is revealed simultaneously for both players and the 
 
 ## API
 
+### Play a move
 
+This action will lock the player's move to start a new play. If there was already another ongoing play or the selected move is not a valid one, the action will be revoked.
+
+**POST** `/play/\<move\>`
+```
+No body
+```
+
+Headers:
+> **X-USER-ID**: *UUID v4 of the current player*
+
+### Resolve active play
+
+This action will resolve the current play (if there is one), and will determine if either the player or the machine won (or if it's a tie), based on the move previously selected by the player.
+
+**GET** `/play/reveal`
+
+Headers:
+> **X-USER-ID**: *UUID v4 of the current player*
 
 ## Installation
 
