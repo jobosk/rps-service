@@ -1,0 +1,185 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "RPS API",
+    "description": "Rock, paper & scissors"
+  },
+  "paths": {
+    "/play/{moveCode}": {
+      "parameters": [
+        {
+          "name": "moveCode",
+          "description": "Code for the selected move",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "x-user-id",
+          "description": "Unique ID for current user",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ],
+      "post": {
+        "summary": "Lock your next play's move",
+        "responses": {
+          "200": {
+            "description": "Selected move for next play has been successfully locked"
+          },
+          "404": {
+            "description": "Selected move does not exist",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Not waiting for any more moves",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/play/reveal": {
+      "parameters": [
+        {
+          "name": "x-user-id",
+          "description": "Unique ID for current user",
+          "in": "header",
+          "required": true,
+          "schema": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      ],
+      "get": {
+        "summary": "Reveal current play's outcome",
+        "responses": {
+          "200": {
+            "description": "The result of the current play",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PlayResult"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "There is no play to reveal",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MoveCodeEnum": {
+        "description": "The codes of the different possible moves to play",
+        "type": "string",
+        "enum": [
+          "ROCK",
+          "PAPER",
+          "SCISSORS"
+        ]
+      },
+      "OutcomeCodeEnum": {
+        "description": "The codes of every possible outcome of the play",
+        "type": "string",
+        "enum": [
+          "USER_WINS",
+          "MACHINE_WINS",
+          "TIE"
+        ]
+      },
+      "PlayResult": {
+        "type": "object",
+        "required": [
+          "moveByUser",
+          "moveByMachine",
+          "outcome"
+        ],
+        "properties": {
+          "moveByUser": {
+            "$ref": "#/components/schemas/MoveCodeEnum"
+          },
+          "moveByMachine": {
+            "$ref": "#/components/schemas/MoveCodeEnum"
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/OutcomeCodeEnum"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "description": "A human readable error message",
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "ApiKey": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-Api-Key"
+      }
+    }
+  },
+  "security": [
+    {
+      "ApiKey": []
+    }
+  ]
+}
