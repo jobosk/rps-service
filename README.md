@@ -42,6 +42,11 @@ docker-compose up -d
 ```
 This will start a container for Redis, which is used to store the user's move before the simultaneous reveal.
 
+And then, start the back-end service with the following command:
+```
+mvn clean spring-boot:run
+```
+
 ## Testing
 
 Setup the required infrastructure using the following command on a running Docker:
@@ -49,3 +54,9 @@ Setup the required infrastructure using the following command on a running Docke
 docker-compose -f docker-compose-test.yml up -d
 ```
 This will start a container for the Pack Broker (where pacts for contract testing will be stored) and its required DB.
+
+And then, run the tests with the following command:
+```
+mvn clean test
+```
+> **Note:** The contract test from [the front-end app](https://github.com/jobosk/rps-front) should've run first, in order to create the consumer pact that the back-end contract test uses to validate itself against the specification.
