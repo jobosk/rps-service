@@ -38,7 +38,7 @@ class ContractTest implements IRedisTest {
     @TestTemplate
     @ExtendWith(PactVerificationSpringProvider.class)
     void verifyPact(PactVerificationContext context) {
-        System.setProperty("pact.verifier.publishResults", "false");
+        System.setProperty("pact.verifier.publishResults", "true");
         context.verifyInteraction();
     }
 
