@@ -17,7 +17,7 @@ Once this is done, the play is revealed simultaneously for both players and the 
 
 This action will lock the player's move to start a new play. If there was already another ongoing play or the selected move is not a valid one, the action will be revoked.
 
-**POST** `/play/\<move\>`
+**POST** `/play/<move>`
 ```
 No body
 ```
