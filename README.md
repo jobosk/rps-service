@@ -23,7 +23,7 @@ No body
 ```
 
 Headers:
-> **X-USER-ID**: *UUID v4 of the current player*
+> **X-USER-ID**: *UUID v4 of the user playing*
 
 ### Resolve active play
 
@@ -32,11 +32,11 @@ This action will resolve the current play (if there is one), and will determine 
 **GET** `/play/reveal`
 
 Headers:
-> **X-USER-ID**: *UUID v4 of the current player*
+> **X-USER-ID**: *UUID v4 of the user playing*
 
 ## Installation
 
-Setup the required infrastructure using the following command on a running Docker:
+Setup the required infrastructure using the following command on a running Docker environment:
 ```
 docker-compose up -d
 ```
@@ -49,7 +49,7 @@ mvn clean spring-boot:run
 
 ## Testing
 
-Setup the required infrastructure using the following command on a running Docker:
+Setup the required infrastructure using the following command on a running Docker environment:
 ```
 docker-compose -f docker-compose-test.yml up -d
 ```
