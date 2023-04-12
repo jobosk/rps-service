@@ -3,36 +3,13 @@
 
 This is the back-end of a 'rock, paper & scissors' game.
 
-## How it works
+## About
 
-First, the user will select one of the three available moves (*ROCK*, *PAPER* or *SCISSORS*) and lock its move for the current play.
+This service aims to be the provider for the endpoints in the following [API definition](https://github.com/jobosk/rps-api).
 
-Obviously at this point there cannot be another active play, and any attemps to restart the game will be revoked.
-
-Once this is done, the play is revealed simultaneously for both players and the winner is decided.
-
-## API
-
-### Play a move
-
-This action will lock the player's move to start a new play. If there was already another ongoing play or the selected move is not a valid one, the action will be revoked.
-
-**POST** `/play/<move>`
-```
-No body
-```
-
-Headers:
-> **X-USER-ID**: *UUID v4 of the user playing*
-
-### Resolve active play
-
-This action will resolve the current play (if there is one), and will determine if either the player or the machine won (or if it's a tie), based on the move previously selected by the player.
-
-**GET** `/play/reveal`
-
-Headers:
-> **X-USER-ID**: *UUID v4 of the user playing*
+The approach to develop of this service was API-first, which implies that both the front-end and the back-end that consume and provide this API respectively, could be implemented in parallel.
+In this case, that means that this service would need to implement the endpoints specified, and those could be tested against a contract based on the API definition, using tools like [Pact](https://pact.io/).
+On top of that, to avoid infrastructure requirements, these tests will be executed on a ephemeral testing environment, with the help of [Testcontainers](https://www.testcontainers.org/).
 
 ## Installation
 

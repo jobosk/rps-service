@@ -18,7 +18,7 @@
     <properties>
         <java.version>11</java.version>
         <!--<api.spec>${project.basedir}/target/generated-sources/api_spec/api.json</api.spec>-->
-        <api.spec>${project.basedir}/src/main/resources/api.json</api.spec>
+        <api.spec>https://raw.githubusercontent.com/jobosk/rps-api/master/api.json</api.spec>
         <pact.version>4.2.14</pact.version>
         <test-containers.version>1.16.2</test-containers.version>
     </properties>
