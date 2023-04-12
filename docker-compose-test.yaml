@@ -29,7 +29,8 @@ services:
       PACT_BROKER_DATABASE_HOST: postgres-rps
       PACT_BROKER_DATABASE_NAME: postgres
     depends_on:
-      - postgres-rps
+      postgres-rps:
+        condition: service_healthy
     networks:
       - contract_testing
 
