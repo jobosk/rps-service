@@ -3,6 +3,7 @@ package com.jobosk.rps;
 import au.com.dius.pact.provider.junit5.HttpTestTarget;
 import au.com.dius.pact.provider.junit5.PactVerificationContext;
 import au.com.dius.pact.provider.junitsupport.Consumer;
+import au.com.dius.pact.provider.junitsupport.IgnoreNoPactsToVerify;
 import au.com.dius.pact.provider.junitsupport.Provider;
 import au.com.dius.pact.provider.junitsupport.State;
 import au.com.dius.pact.provider.junitsupport.loader.PactBroker;
@@ -17,11 +18,14 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.Optional;
+
 @Provider("rps-back")
 @Consumer("rps-front")
 @PactBroker
 //@PactFolder("./src/pacts")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@IgnoreNoPactsToVerify
 class ContractTest implements IRedisTest {
 
     @LocalServerPort
@@ -31,15 +35,19 @@ class ContractTest implements IRedisTest {
     RedisTemplate<String, MoveCodeEnum> redisTemplateUserPlays;
 
     @BeforeEach
-    void setUp(PactVerificationContext context) {
-        context.setTarget(new HttpTestTarget("localhost", port));
+    void setUp(final PactVerificationContext context) {
+        Optional.ofNullable(context)
+                .ifPresent(c -> c.setTarget(new HttpTestTarget("localhost", port)));
     }
 
     @TestTemplate
     @ExtendWith(PactVerificationSpringProvider.class)
-    void verifyPact(PactVerificationContext context) {
-        System.setProperty("pact.verifier.publishResults", "true");
-        context.verifyInteraction();
+    void verifyPact(final PactVerificationContext context) {
+        Optional.ofNullable(context)
+                .ifPresent(c -> {
+                    System.setProperty("pact.verifier.publishResults", "true");
+                    c.verifyInteraction();
+                });
     }
 
     @State("user 00000000-0000-0000-0000-000000000000 doesn't have active plays")
