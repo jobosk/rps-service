@@ -11,10 +11,12 @@ import java.util.Random;
 public class EnumUtil {
 
     public static Optional<MoveCodeEnum> getMove(final String moveCode) {
-        try {
-            return Optional.of(MoveCodeEnum.fromValue(moveCode));
-        } catch (final Exception e) {
-            log.error("error_parsing_move_code", e);
+        if (moveCode != null) {
+            try {
+                return Optional.of(MoveCodeEnum.fromValue(moveCode));
+            } catch (final Exception e) {
+                log.error("error_parsing_move_code", e);
+            }
         }
         return Optional.empty();
     }

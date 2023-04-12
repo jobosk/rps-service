@@ -7,6 +7,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
+import javax.validation.constraints.NotNull;
 import java.util.Optional;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -18,7 +19,7 @@ public class UserPlayRepository implements IUserPlayRepository {
     private final RedisTemplate<String, MoveCodeEnum> redisTemplateUserPlays;
 
     @Override
-    public void saveUserPlay(final MoveCodeEnum moveCode, final UUID userId) {
+    public void saveUserPlay(final @NotNull MoveCodeEnum moveCode, final @NotNull UUID userId) {
         final String id = userId.toString();
         final MoveCodeEnum unfinishedPlay = redisTemplateUserPlays.opsForValue().get(id);
         if (unfinishedPlay != null) {
