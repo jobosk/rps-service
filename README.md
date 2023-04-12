@@ -8,7 +8,9 @@ This is the back-end of a 'rock, paper & scissors' game.
 This service aims to be the provider for the endpoints in the following [API definition](https://github.com/jobosk/rps-api).
 
 The approach to develop of this service was API-first, which implies that both the front-end and the back-end that consume and provide this API respectively, could be implemented in parallel.
-In this case, that means that this service would need to implement the endpoints specified, and those could be tested against a contract based on the API definition, using tools like [Pact](https://pact.io/).
+
+In this particular service, we would need to implement the endpoints specified and those would be tested against a contract based on the API definition, using tools like [Pact](https://pact.io/).
+
 On top of that, to avoid infrastructure requirements, these tests will be executed on a ephemeral testing environment, with the help of [Testcontainers](https://www.testcontainers.org/).
 
 ## Installation
