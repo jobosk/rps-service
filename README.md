@@ -13,6 +13,10 @@ In this case, that means we could implement the endpoints specified, and the cor
 
 On top of that, to avoid infrastructure requirements, these tests will be executed on a ephemeral testing environment, with the help of [Testcontainers](https://www.testcontainers.org/).
 
+## Troubleshooting
+
+The Pact.io library used to run contact tests has several [requirements](https://docs.pact.io/implementation_guides/javascript/docs/troubleshooting), that might cause some problems if not complied with.
+
 ## Installation
 
 Setup the required infrastructure using the following command on a running Docker environment:
