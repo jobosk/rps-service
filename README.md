@@ -9,7 +9,7 @@ This service aims to be the provider for the endpoints in the following [API def
 
 The approach to develop of this service was API-first, which implies that both the front-end and the back-end that consume and provide this API respectively, could be implemented in parallel.
 
-In this case, that means we could implement the endpoints specified, and the corresponding contract tests, using with tools like [Pact](https://pact.io/), to validate those against the API definition itself.
+In this case, that means we could implement the endpoints specified, and the corresponding contract tests, using tools like [Pact](https://pact.io/), to validate those against the API definition itself.
 
 On top of that, to avoid infrastructure requirements, these tests will be executed on a ephemeral testing environment, with the help of [Testcontainers](https://www.testcontainers.org/).
 
