@@ -13,9 +13,13 @@ In this case, that means we could implement the endpoints specified, and the cor
 
 On top of that, to avoid infrastructure requirements, these tests will be executed on a ephemeral testing environment, with the help of [Testcontainers](https://www.testcontainers.org/).
 
-## Troubleshooting
+## Requirements
 
-The Pact.io library used to run contact tests has several [requirements](https://docs.pact.io/implementation_guides/javascript/docs/troubleshooting), that might cause some problems if not complied with.
+This project requires some infrastructure to run (and be tested). To satisfice those requirements, we've used a [Docker Compose](https://docs.docker.com/compose/) script, which means that it needs to be installed together with your [Docker](https://www.docker.com/) installation.
+
+The script itself is not required, as long as you locally deploy the same infrastructure described in the YML files. However Docker itself is, since it is used by the tests to mock said insfrastructure.
+
+Also, the Pact.io library used to run contact tests has several requirements, that might cause [some problems](https://docs.pact.io/implementation_guides/javascript/docs/troubleshooting) if not complied with.
 
 ## Installation
 
