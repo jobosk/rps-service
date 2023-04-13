@@ -35,6 +35,13 @@ And then, start the back-end service with the following command:
 mvn clean spring-boot:run
 ```
 
+### Cleanup
+
+Once the service has stopped, you can remove the required infrastructure with:
+```
+docker-compose down
+```
+
 ## Testing
 
 Setup the required infrastructure using the following command on a running Docker environment:
@@ -49,3 +56,10 @@ And then, run the tests with the following command:
 mvn clean test
 ```
 > **Note:** The contract test from [the front-end app](https://github.com/jobosk/rps-front) should've run first, in order to create the consumer pact that the back-end contract test uses to validate itself against the specification. Otherwise, the test will run successfully but no contract would have been validated. This is the chosen behaviour for the current exercise, but it could be changed to fail if no tests are found for this provider.
+
+### Cleanup
+
+Once the tests are done, you can remove the required infrastructure with:
+```
+docker-compose -f docker-compose-test.yml down
+```
