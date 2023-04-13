@@ -13,7 +13,7 @@ In this case, that means we could implement the endpoints specified, and the cor
 
 On top of that, to avoid infrastructure requirements, these tests will be executed on a ephemeral testing environment, with the help of [Testcontainers](https://www.testcontainers.org/).
 
-It is worth mentioning that this service is compatible with multiple clients (front-end aplications) simultaneously. This means that plays from each one will be resolved independently, as long as they provide different IDs in their respective requests.
+It is worth mentioning that this service is compatible with multiple clients ([front-end](https://github.com/jobosk/rps-front) aplications) simultaneously. This means that plays from each one will be resolved independently, as long as they provide different IDs in their respective requests.
 
 ## Requirements
 
