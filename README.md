@@ -18,7 +18,7 @@ It is worth mentioning that this service is compatible with multiple clients (fr
 ## Requirements
 
 This project requires some infrastructure to run (and be tested). To satisfy those requirements, we've used a [Docker Compose](https://docs.docker.com/compose/) script, which means that it needs to be installed together with your [Docker](https://www.docker.com/) installation.
-The script itself is not required, as long as you locally deploy the same infrastructure described in the YML files for the [running](https://github.com/jobosk/rps-service/blob/master/docker-compose.yaml) and [testing](https://github.com/jobosk/rps-service/blob/master/docker-compose-test.yaml) environments. However Docker actually **is**, since it is used by the tests to mock said infrastructure.
+The script itself is not required, as long as you locally deploy the same infrastructure described in the YAML files for the [running](https://github.com/jobosk/rps-service/blob/master/docker-compose.yaml) and [testing](https://github.com/jobosk/rps-service/blob/master/docker-compose-test.yaml) environments. However Docker actually **is**, since it is used by the tests to mock said infrastructure.
 
 It also expects [Maven](https://maven.apache.org/install.html) and the [JDK 11](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) (at least) to be installed.
 
@@ -48,7 +48,7 @@ docker-compose down
 Setup the required infrastructure using the following command on a running Docker environment:
 > **Note:** This might take over 30 seconds, since the Pact Broker container will not start until the DB one is healthy.
 ```
-docker-compose -f docker-compose-test.yml up -d
+docker-compose -f docker-compose-test.yaml up -d
 ```
 This will start a container for the Pack Broker (where pacts for contract testing will be stored) and its required DB.
 
@@ -62,5 +62,5 @@ mvn clean test
 
 Once the tests are done, you can remove the required infrastructure with:
 ```
-docker-compose -f docker-compose-test.yml down
+docker-compose -f docker-compose-test.yaml down
 ```
