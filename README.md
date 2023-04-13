@@ -13,6 +13,8 @@ In this case, that means we could implement the endpoints specified, and the cor
 
 On top of that, to avoid infrastructure requirements, these tests will be executed on a ephemeral testing environment, with the help of [Testcontainers](https://www.testcontainers.org/).
 
+It is worth mentioning that this service is compatible with multiple clients (front-end aplications) simultaneously, as long as they provide a different ID in their requests. This means that plays from each one will be resolved independently.
+
 ## Requirements
 
 This project requires some infrastructure to run (and be tested). To satisfice those requirements, we've used a [Docker Compose](https://docs.docker.com/compose/) script, which means that it needs to be installed together with your [Docker](https://www.docker.com/) installation.
