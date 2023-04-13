@@ -36,6 +36,7 @@ mvn clean spring-boot:run
 ## Testing
 
 Setup the required infrastructure using the following command on a running Docker environment:
+> **Note:** This might take over 30 seconds, since the Pack Broker container will not start until the DB one is healthy.
 ```
 docker-compose -f docker-compose-test.yml up -d
 ```
