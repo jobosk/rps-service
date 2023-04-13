@@ -34,6 +34,7 @@ And then, start the back-end service with the following command:
 ```
 mvn clean spring-boot:run
 ```
+This will run the service using Spring Boot in the current terminal.
 
 ### Cleanup
 
