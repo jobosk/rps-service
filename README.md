@@ -18,7 +18,7 @@ On top of that, to avoid infrastructure requirements, these tests will be execut
 This project requires some infrastructure to run (and be tested). To satisfice those requirements, we've used a [Docker Compose](https://docs.docker.com/compose/) script, which means that it needs to be installed together with your [Docker](https://www.docker.com/) installation.
 The script itself is not required, as long as you locally deploy the same infrastructure described in the YML files for the [running](https://github.com/jobosk/rps-service/blob/master/docker-compose.yaml) and [testing](https://github.com/jobosk/rps-service/blob/master/docker-compose-test.yaml) environments. However Docker actually **is**, since it is used by the tests to mock said insfrastructure.
 
-It also expects [Maven](https://maven.apache.org/install.html) and at least the [JDK 11](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) to be installed.
+It also expects [Maven](https://maven.apache.org/install.html) and the [JDK 11](https://docs.oracle.com/en/java/javase/11/install/overview-jdk-installation.html) (at least) to be installed.
 
 ## Installation
 
