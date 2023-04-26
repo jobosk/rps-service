@@ -64,3 +64,19 @@ Once the tests are done, you can remove the required infrastructure with:
 ```
 docker-compose -f docker-compose-test.yaml down
 ```
+
+## Front-end support
+
+In case you just want to get over with the back-end setup in order to run [the front-end app](https://github.com/jobosk/rps-front), you can also run the following:
+```
+docker-compose -f docker-compose-back.yml up -d
+```
+This will start one container with Redis and another one with the back-end service itself.
+> **Note:** The setup for the latter will run mostly synchronously during the container's creation, but plugin to start the Spring Boot application will run asynchronously after the container has been successfully created. This means that requests to the back-end immediately after Docker Compose has finished executing the script might not work, until the plugin's execution is complete (which takes around 20 seconds).
+
+### Cleanup
+
+Once the back-end service is no longer needed, you can remove it together with the required infrastructure with:
+```
+docker-compose -f docker-compose-back.yaml down
+```
