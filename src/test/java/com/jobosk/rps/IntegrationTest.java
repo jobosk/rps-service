@@ -90,9 +90,14 @@ public class IntegrationTest implements IRedisTest {
     @Test
     public void revealPlay_missingActivePlay_isNok() throws Exception {
         this.mockMvc.perform(
-                get("/reveal")
+                get("/play/reveal")
                         .header("x-user-id", UUID.randomUUID())
         )
-                .andExpect(status().isNotFound());
+                .andExpect(status().isNotFound())
+                .andExpect(
+                        MockMvcResultMatchers.jsonPath("$")
+                                .value("missing_active_game")
+                )
+        ;
     }
 }
