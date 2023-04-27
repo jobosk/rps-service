@@ -72,7 +72,7 @@ In case you just want to get over with the back-end setup in order to run [the f
 docker-compose -f docker-compose-back.yaml up -d
 ```
 This will start one container with Redis and another one with the back-end service itself.
-> **Note:** The setup for the latter will run mostly synchronously during the container's creation, but plugin to start the Spring Boot application will run asynchronously after the container has been successfully created. This means that requests to the back-end immediately after Docker Compose has finished executing the script might not work, until the plugin's execution is complete (which takes around 20 seconds).
+> **Note:** The setup for the latter will run mostly synchronously during the container's creation, but the plugin to start the Spring Boot application will run asynchronously after the container has been successfully created. This means that requests to the back-end immediately after Docker Compose has finished executing the script might not work, until the plugin's execution is complete (which takes around 20 seconds in a background process).
 
 ### Cleanup
 
