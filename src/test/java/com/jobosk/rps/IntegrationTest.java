@@ -6,6 +6,7 @@ import com.jobosk.rps.helper.IRedisTest;
 import com.jobosk.rps.model.MoveCodeEnum;
 import com.jobosk.rps.repository.UserPlayRepository;
 import com.jobosk.rps.service.PlayService;
+import com.jobosk.rps.util.EnumUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
@@ -42,7 +43,16 @@ public class IntegrationTest implements IRedisTest {
     MockMvc mockMvc;
 
     @Test
-    public void playMove_isOk() throws Exception {
+    public void playMove_whenRock_isOk() throws Exception {
+        final UUID userId = UUID.randomUUID();
+        this.mockMvc.perform(
+                post("/play/{moveCode}", MoveCodeEnum.ROCK.name())
+                        .header("x-user-id", userId)
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    public void playMove_whenPaper_isOk() throws Exception {
         final UUID userId = UUID.randomUUID();
         this.mockMvc.perform(
                 post("/play/{moveCode}", MoveCodeEnum.PAPER.name())
@@ -51,9 +61,36 @@ public class IntegrationTest implements IRedisTest {
     }
 
     @Test
-    public void playMove_unknownMove_isNok() throws Exception {
+    public void playMove_whenScissors_isOk() throws Exception {
+        final UUID userId = UUID.randomUUID();
         this.mockMvc.perform(
-                post("/play/{moveCode}", "SPOCK")
+                post("/play/{moveCode}", MoveCodeEnum.SCISSORS.name())
+                        .header("x-user-id", userId)
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    public void playMove_whenLizard_isOk() throws Exception {
+        final UUID userId = UUID.randomUUID();
+        this.mockMvc.perform(
+                post("/play/{moveCode}", MoveCodeEnum.LIZARD.name())
+                        .header("x-user-id", userId)
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    public void playMove_whenSpock_isOk() throws Exception {
+        final UUID userId = UUID.randomUUID();
+        this.mockMvc.perform(
+                post("/play/{moveCode}", MoveCodeEnum.SPOCK.name())
+                        .header("x-user-id", userId)
+        ).andExpect(status().isOk());
+    }
+
+    @Test
+    public void playMove_whenUnknownMove_isNok() throws Exception {
+        this.mockMvc.perform(
+                post("/play/{moveCode}", "SOME_OTHER_MOVE")
                         .header("x-user-id", UUID.randomUUID())
         ).andExpect(status().isNotFound());
     }
@@ -61,9 +98,9 @@ public class IntegrationTest implements IRedisTest {
     @Test
     public void playMove_unfinishedPlay_isNok() throws Exception {
         final UUID userId = UUID.randomUUID();
-        userPlayRepository.saveUserPlay(MoveCodeEnum.ROCK, userId);
+        userPlayRepository.saveUserPlay(EnumUtil.getRandomMove(), userId);
         this.mockMvc.perform(
-                post("/play/{moveCode}", MoveCodeEnum.PAPER.name())
+                post("/play/{moveCode}", EnumUtil.getRandomMove().name())
                         .header("x-user-id", userId)
         ).andExpect(status().isMethodNotAllowed());
     }
@@ -71,15 +108,16 @@ public class IntegrationTest implements IRedisTest {
     @Test
     public void revealPlay_isOk() throws Exception {
         final UUID userId = UUID.randomUUID();
-        userPlayRepository.saveUserPlay(MoveCodeEnum.ROCK, userId);
+        final MoveCodeEnum move = EnumUtil.getRandomMove();
+        userPlayRepository.saveUserPlay(move, userId);
         this.mockMvc.perform(
-                get("/play/reveal")
-                        .header("x-user-id", userId)
-        )
+                        get("/play/reveal")
+                                .header("x-user-id", userId)
+                )
                 .andExpect(status().isOk())
                 .andExpect(
                         MockMvcResultMatchers.jsonPath("$.moveByUser")
-                                .value(MoveCodeEnum.ROCK.name())
+                                .value(move.name())
                 )
                 .andExpect(MockMvcResultMatchers.jsonPath("$.moveByMachine").exists())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.outcome").exists())
@@ -90,9 +128,9 @@ public class IntegrationTest implements IRedisTest {
     @Test
     public void revealPlay_missingActivePlay_isNok() throws Exception {
         this.mockMvc.perform(
-                get("/play/reveal")
-                        .header("x-user-id", UUID.randomUUID())
-        )
+                        get("/play/reveal")
+                                .header("x-user-id", UUID.randomUUID())
+                )
                 .andExpect(status().isNotFound())
                 .andExpect(
                         MockMvcResultMatchers.jsonPath("$")

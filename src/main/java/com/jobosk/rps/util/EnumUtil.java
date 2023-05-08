@@ -27,15 +27,45 @@ public class EnumUtil {
     }
 
     public static OutcomeCodeEnum getOutcome(final MoveCodeEnum moveByUser, final MoveCodeEnum moveByMachine) {
-        if (moveByUser == moveByMachine) {
-            return OutcomeCodeEnum.TIE;
+        if (moveByUser != moveByMachine) {
+            switch (moveByUser) {
+                case ROCK:
+                    switch (moveByMachine) {
+                        case SCISSORS:
+                        case LIZARD:
+                            return OutcomeCodeEnum.USER_WINS;
+                    }
+                    return OutcomeCodeEnum.MACHINE_WINS;
+                case PAPER:
+                    switch (moveByMachine) {
+                        case ROCK:
+                        case SPOCK:
+                            return OutcomeCodeEnum.USER_WINS;
+                    }
+                    return OutcomeCodeEnum.MACHINE_WINS;
+                case SCISSORS:
+                    switch (moveByMachine) {
+                        case PAPER:
+                        case LIZARD:
+                            return OutcomeCodeEnum.USER_WINS;
+                    }
+                    return OutcomeCodeEnum.MACHINE_WINS;
+                case LIZARD:
+                    switch (moveByMachine) {
+                        case PAPER:
+                        case SPOCK:
+                            return OutcomeCodeEnum.USER_WINS;
+                    }
+                    return OutcomeCodeEnum.MACHINE_WINS;
+                case SPOCK:
+                    switch (moveByMachine) {
+                        case ROCK:
+                        case SCISSORS:
+                            return OutcomeCodeEnum.USER_WINS;
+                    }
+                    return OutcomeCodeEnum.MACHINE_WINS;
+            }
         }
-        if (moveByUser == MoveCodeEnum.ROCK) {
-            return moveByMachine == MoveCodeEnum.SCISSORS ? OutcomeCodeEnum.USER_WINS : OutcomeCodeEnum.MACHINE_WINS;
-        }
-        if (moveByUser == MoveCodeEnum.PAPER) {
-            return moveByMachine == MoveCodeEnum.ROCK ? OutcomeCodeEnum.USER_WINS : OutcomeCodeEnum.MACHINE_WINS;
-        }
-        return moveByMachine == MoveCodeEnum.PAPER ? OutcomeCodeEnum.USER_WINS : OutcomeCodeEnum.MACHINE_WINS;
+        return OutcomeCodeEnum.TIE;
     }
 }
