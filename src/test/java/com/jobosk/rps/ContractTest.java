@@ -51,12 +51,32 @@ class ContractTest implements IRedisTest {
     }
 
     @State("user 00000000-0000-0000-0000-000000000000 doesn't have active plays")
-    public void student1Exists() {
+    public void userHasNoActivePlays() {
         redisTemplateUserPlays.delete("00000000-0000-0000-0000-000000000000");
     }
 
-    @State("user 00000000-0000-0000-0000-000000000000 previously selected rock")
-    public void studentsExist() {
+    @State("user 00000000-0000-0000-0000-000000000000 previously selected \"rock\"")
+    public void userPlayedRock() {
         redisTemplateUserPlays.opsForValue().set("00000000-0000-0000-0000-000000000000", MoveCodeEnum.ROCK);
+    }
+
+    @State("user 00000000-0000-0000-0000-000000000000 previously selected \"paper\"")
+    public void userPlayedPaper() {
+        redisTemplateUserPlays.opsForValue().set("00000000-0000-0000-0000-000000000000", MoveCodeEnum.PAPER);
+    }
+
+    @State("user 00000000-0000-0000-0000-000000000000 previously selected \"scissors\"")
+    public void userPlayedScissors() {
+        redisTemplateUserPlays.opsForValue().set("00000000-0000-0000-0000-000000000000", MoveCodeEnum.SCISSORS);
+    }
+
+    @State("user 00000000-0000-0000-0000-000000000000 previously selected \"lizard\"")
+    public void userPlayedLizard() {
+        redisTemplateUserPlays.opsForValue().set("00000000-0000-0000-0000-000000000000", MoveCodeEnum.LIZARD);
+    }
+
+    @State("user 00000000-0000-0000-0000-000000000000 previously selected \"spock\"")
+    public void userPlayedSpock() {
+        redisTemplateUserPlays.opsForValue().set("00000000-0000-0000-0000-000000000000", MoveCodeEnum.SPOCK);
     }
 }
